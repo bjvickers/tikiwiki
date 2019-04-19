@@ -1,0 +1,38 @@
+version: "3"
+
+volumes:
+  maildev:
+  mariadb:
+
+networks:
+  tikinet:
+    driver: bridge
+
+services:
+
+  maildev:
+    container_name: maildev
+    image: djfarrelly/maildev
+    ports:
+      - 1080:80
+      - 1025:25
+    networks:
+      tikinet:
+        aliases:
+          - maildev
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=Password1
+      - MYSQL_USER=tiki
+      - MYSQL_PASSWORD=Password1
+      - MYSQL_DATABASE=tiki
+    networks:
+      tikinet:
+        aliases:
+          - mariadb
+
