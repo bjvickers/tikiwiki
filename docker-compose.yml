@@ -36,3 +36,15 @@ services:
         aliases:
           - mariadb
 
+  tikiserver:
+    container_name: tikiserver
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      tikinet:
+        aliases:
+          - tikiserver
+
